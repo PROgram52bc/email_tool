@@ -1,4 +1,7 @@
 # Automatic Email composer/sender
+---
+## Prerequisites/dependencies
+* *mailx* installed and properly configured
 --- 
 ## 1\. Generate a new template
 #### Execute 
@@ -21,7 +24,7 @@ and the following files will be generated:
 > contains letter Subject in Chinese
 * _./templates/myTemplate/subject\_en.txt_
 > contains letter Subject in English
-* _./XXX\_data.csv_ (**will not be generated**)
+* _./XxxData.csv_ (**will not be generated**)
 > contains data of the receivers. You should create this file manually, whose contents should resemble the following table.
 
 > *num*|*address*|*name*|*isEng*|isClose|...
@@ -39,13 +42,13 @@ and the following files will be generated:
 > * **address**: the email address of the receiver
 > * **name**: the name of the receiver
 > * **isEng**: whether the receiver uses English(as opposed to Chinese)
-> ####**Note**: By convention, boolean variables will have a name _isXXX_, and its true value is 'y', anything else is false.
+> #### **Note**: By convention, boolean variables will have a name _isXXX_, and its true value is 'y', anything else is false.
 
 ---
 ## 2\. Compose letters
 #### Execute
 ```
-./compose myTemplate XXX\data.csv
+./compose myTemplate XxxData.csv
 ```
 #### to compose letters.
 #### You can browse and check the generated letters in ./letters/myTemplate/
