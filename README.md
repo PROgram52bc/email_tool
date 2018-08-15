@@ -8,7 +8,7 @@
 ```
 ./generate myTemplate
 ```
-and the following files will be generated:
+#### and the following files will be generated:
 *	./templates/**myTemplate**/zh.txt
 *	./templates/**myTemplate**/en.txt
 *	./templates/**myTemplate**/subject\_zh.txt
