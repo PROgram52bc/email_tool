@@ -38,7 +38,7 @@ David
 ---
 ## Prerequisites/dependencies
 * mailx installed and properly configured
-* 
+
 --- 
 ## 1\. Generate a new template
 #### Execute 
@@ -49,7 +49,7 @@ David
 *	./templates/**myTemplate**/zh.txt
 > contains letter contents in Chinese, where bash variables(defined in the first line of _XxxData.csv_) and subshell syntax can be used to compose slightly different contents based on the receiver.
 *	./templates/**myTemplate**/en.txt
-> contains letter contents in English. This file will be used when **isEng** is set to 'y'. where bash variables(defined in the first line of _XxxData.csv_) and subshell syntax can be used to compose slightly different contents based on the receiver.
+> contains letter contents in English. This file will be used when **isEng** is set to 'y'. Bash variables(defined in the first line of _XxxData.csv_) and subshell syntax can be used to compose slightly different contents based on the receiver.
 *	./templates/**myTemplate**/subject\_zh.txt
 > contains letter Subject (title) in Chinese.
 *	./templates/**myTemplate**/subject\_en.txt
@@ -64,16 +64,14 @@ If you don't need to write letters in dual language, you can simply ignore the C
 
 * _./XxxData.csv_ (**will not be generated**)
 > contains data of the receivers. You should create this file manually, whose contents should resemble the following table.
-*
 
-> *num*|*address*|*name*|*isEng*|isClose|...
-> ---:|:---:|:---:|:---:|:---:|---
-> 1|xxx@gmail.com|uncle Jack|y|y|...
-> 2|yyy@yahoo.com|Tim|y|n|...
-> .|.|.|.|.|...
-> .|.|.|.|.|...
-> .|.|.|.|.|...
-
+*num*|*address*|*name*|*isEng*|isClose|...
+---:|:---:|:---:|:---:|:---:|---
+1|xxx@gmail.com|uncle Jack|y|y|...
+2|yyy@yahoo.com|Tim|y|n|...
+.|.|.|.|.|...
+.|.|.|.|.|...
+.|.|.|.|.|...
 > Where the first row is always the variable names that you will use in the template files (zh.txt, en.txt)
 > Currently, the italicized variables (first 4) are necessary, so be sure to include them.
 > #### A description of variables
@@ -90,7 +88,8 @@ If you don't need to write letters in dual language, you can simply ignore the C
 ./compose myTemplate XxxData.csv
 ```
 #### to compose letters.
-#### You can browse and check the generated letters in ./letters/myTemplate/
+You can browse and check the generated letters in ./letters/myTemplate/
+
 ---
 ## 3\. Send your letters
 #### When letters are successfully composed, execute
