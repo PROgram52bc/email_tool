@@ -8,6 +8,8 @@ OFOLDER="./letters/$1"
 IFOLDER="./templates/$1"
 IFS=,
 
+if [ ! -d $IFOLDER ]; then echo $IFOLDER does not exist!; exit 1; fi
+
 # empty the output folder
 if [ ! -d $OFOLDER ]; then
 	mkdir -p $OFOLDER # make parent dir as well
@@ -24,8 +26,14 @@ do
 		varArr[$i]=${varArr[$i]// /_}
 		declare "${keyArr[$i]}"="${valArr[$i]}"
 	done
+	# Conditions for composing letters
 	# if "num" is a valid number (eliminate unnecessary entries)
-	if [[ ${num} =~ ^[0-9]+$ ]]; then 
+	if [[ ${num} =~ ^[0-9]+$ ]] &&
+	# AND address is not empty 
+		[ -n "$address" ] &&
+	# AND name is not empty
+		[ -n "$name" ]
+	then
 		echo composing for $num: $name
 		#	DON'T INDENT START
 		if [ "$isEng" != y ]; then

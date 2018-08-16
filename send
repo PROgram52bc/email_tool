@@ -10,8 +10,9 @@ elif test ! -d ./letters/$1; then echo "no directory $1, maybe try './compose te
 	exit
 fi
 
+OLDIFS=$IFS
 IFS=,
-FOLDER=./letters/${1%/} # remove the final /
+FOLDER=./letters/$1 
 DATAFILE=${FOLDER}/data.csv
 RESULTFILE=${FOLDER}/result.csv
 SUBJECT_ZH=$(cat $FOLDER/subject_zh.txt)
@@ -39,20 +40,35 @@ do
 		varArr[$i]=${varArr[$i]// /_}
 		declare "${keyArr[$i]}"="${valArr[$i]}"
 	done
-	# if num has not been sent AND num is a valid number
+	# Conditions for sending letters
+	# if num has not been sent 
 	if test "${resultArr[$num]}" != y && 
-		[[ ${num} =~ ^[0-9]+$ ]]
+	# AND num is a valid number
+		[[ ${num} =~ ^[0-9]+$ ]] &&
+	# AND address is not empty 
+		[ -n "$address" ] &&
+	# AND name is not empty
+		[ -n "$name" ]
 	then
 		# set subject
 		SUBJECT="$([ "$isEng" = y ] && 
 		echo ${SUBJECT_EN:?English subject is empty} || 
 		echo ${SUBJECT_ZH:?Chinese subject is empty})"
+
+		# set up attachments files
+		ATTFOLDER="./attachments/$1/$([ "$isEng" = y ] && echo "en" || echo "zh")"
+		ATTS=()
+		for file in ${ATTFOLDER}/*; do [ -f $file ] && ATTS+=("$file"); done
+
 		# ask for confirmation
 		if test $confirm = y; then
 			echo
 			echo "Num: $num"
 			echo "To: $name, $address"
 			echo "Subject: $SUBJECT"
+			for i in ${!ATTS[@]}; do 
+				echo Attachment $(($i+1)): ${ATTS[$i]}
+			done
 			echo
 			cat ${FOLDER}/${num}.txt
 			echo
@@ -73,8 +89,15 @@ do
 					;;
 			esac
 		fi
+		# set back IFS to read arguments properly
+		IFS=$OLDIFS
+		# set up attachment argument line
+		ATTARGS=""
+		for file in ${ATTS[@]}; do ATTARGS+=" -a $file"; done
 		# send the mail
-		cat ${FOLDER}/${num}.txt | mailx -s $SUBJECT ${address}
+		echo $ATTARGS
+		cat ${FOLDER}/${num}.txt | s-nail $ATTARGS -s "$SUBJECT" ${address}
+		IFS=,
 		# check the result
 		retval=$?
 		if test $retval = 0; then

@@ -1,7 +1,12 @@
 #!/bin/bash
-if test $# != 1; then echo usage: $0 template_name; exit 1
-elif test -d ./templates/$1; then echo $1 already exists!; exit 2; fi
+if test $# != 1; then echo usage: $0 template_name; exit 1; fi
 
+# generate attachment directories
+mkdir -p ./attachments/$1/en
+mkdir -p ./attachments/$1/zh
+
+# check and generate template directories/files
+if test -d ./templates/$1; then echo template $1 already exists!; exit 2; fi
 mkdir -p ./templates/$1
 cd templates/$1
 cat > zh.txt << 'EOF'
@@ -14,4 +19,5 @@ echo "中文标题" > subject_zh.txt
 
 echo "English Subject" > subject_en.txt
 
-echo Template $1 created! See ./templates/$1
+
+echo $1 created! See ./templates/$1 and ./attachments/$1
