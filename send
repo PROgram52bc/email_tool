@@ -95,7 +95,6 @@ do
 		ATTARGS=""
 		for file in ${ATTS[@]}; do ATTARGS+=" -a $file"; done
 		# send the mail
-		echo $ATTARGS
 		cat ${FOLDER}/${num}.txt | s-nail $ATTARGS -s "$SUBJECT" ${address}
 		IFS=,
 		# check the result
