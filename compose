@@ -1,14 +1,21 @@
 #!/bin/bash
 
-if test $# != 2; then echo "usage: $0 template_name data.csv"
-	exit
+# On 1 argument
+if test $# = 1; then 
+	DATAFILE="./data/${1}.csv"
+# On 2 arguments
+elif test $# = 2; then 
+	DATAFILE=$2
+# On anything other amount of arguments
+else echo "usage: $0 template_name [data/template_name.csv]"
+	exit 
 fi
-DATAFILE=$2
 OFOLDER="./letters/$1"
 IFOLDER="./templates/$1"
 IFS=,
 
 if [ ! -d $IFOLDER ]; then echo $IFOLDER does not exist!; exit 1; fi
+if [ ! -f $DATAFILE ]; then echo $DATAFILE does not exist!; exit 1; fi
 
 # empty the output folder
 if [ ! -d $OFOLDER ]; then
