@@ -43,7 +43,7 @@ do
 	then
 		echo composing for $num: $name
 		#	DON'T INDENT START
-		if [ "$isEng" != y ]; then
+		if [ "$is_eng" != y ]; then
 eval "cat << EOF
 $(<${IFOLDER}/zh.txt)
 EOF" > ${OFOLDER}/${num}.txt
