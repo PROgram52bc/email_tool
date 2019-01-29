@@ -51,12 +51,12 @@ do
 		[ -n "$name" ]
 	then
 		# set subject
-		SUBJECT="$([ "$isEng" = y ] && 
+		SUBJECT="$([ "$is_eng" = y ] && 
 		echo ${SUBJECT_EN:?English subject is empty} || 
 		echo ${SUBJECT_ZH:?Chinese subject is empty})"
 
 		# set up attachments files
-		ATTFOLDER="./attachments/$1/$([ "$isEng" = y ] && echo "en" || echo "zh")"
+		ATTFOLDER="./attachments/$1/$([ "$is_eng" = y ] && echo "en" || echo "zh")"
 		ATTS=()
 		for file in ${ATTFOLDER}/*; do [ -f $file ] && ATTS+=("$file"); done
 
